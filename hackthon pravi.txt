@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Dashboard</title>
+    <style>
+        /* Basic CSS styling */
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        #weather-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    <input type="text" id="city-input" placeholder="Enter city name">
+    <button id="get-weather-btn">Get Weather</button>
+    <div id="weather-info"></div>
+
+    <script>
+        // JavaScript code will go here
+    </script>
+</body>
+</html>
+const apiKey = 'const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your API key
+const cityInput = document.getElementById('city-input');
+const getWeatherBtn = document.getElementById('get-weather-btn');
+const weatherInfoDiv = document.getElementById('weather-info');
+
+getWeatherBtn.addEventListener('click', () => {
+    const cityName = cityInput.value;
+    if (cityName) {
+        getWeatherData(cityName);
+    }
+});
+
+async function getWeatherData(cityName) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`; // Use metric units
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (response.ok) {
+            displayWeatherData(data);
+        } else {
+            weatherInfoDiv.textContent = `Error: ${data.message}`;
+        }
+    } catch (error) {
+        weatherInfoDiv.textContent = 'An error occurred. Please try again.';
+        console.error(error);
+    }
+}
+
+function displayWeatherData(data) {
+    const temperature = data.main.temp;
+    const humidity = data.main.humidity;
+    const description = data.weather[0].description;
+
+    weatherInfoDiv.innerHTML = `
+        <p>Temperature: ${temperature}°C</p>
+        <p>Humidity: ${humidity}%</p>
+        <p>Description: ${description}</p>
+    `;
+}'; // Replace with your API key
+const cityInput = document.getElementById('city-input');
+const getWeatherBtn = document.getElementById('get-weather-btn');
+const weatherInfoDiv = document.getElementById('weather-info');
+
+getWeatherBtn.addEventListener('click', () => {
+    const cityName = cityInput.value;
+    if (cityName) {
+        getWeatherData(cityName);
+    }
+});
+
+async function getWeatherData(cityName) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`; // Use metric units
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (response.ok) {
+            displayWeatherData(data);
+        } else {
+            weatherInfoDiv.textContent = `Error: ${data.message}`;
+        }
+    } catch (error) {
+        weatherInfoDiv.textContent = 'An error occurred. Please try again.';
+        console.error(error);
+    }
+}
+
+function displayWeatherData(data) {
+    const temperature = data.main.temp;
+    const humidity = data.main.humidity;
+    const description = data.weather[0].description;
+
+    weatherInfoDiv.innerHTML = `
+        <p>Temperature: ${temperature}°C</p>
+        <p>Humidity: ${humidity}%</p>
+        <p>Description: ${description}</p>
+    `;
+}
